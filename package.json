@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/geraldglynn/reddit/issues"
   },
-  "homepage": "https://github.com/geraldglynn/reddit#readme"
+  "homepage": "https://github.com/geraldglynn/reddit#readme",
+  "dependencies": {
+    "markdown": "^0.5.0"
+  }
 }
