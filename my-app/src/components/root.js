@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { fetchSubreddit, fetchSubredditPosts } from '../api/reddit'
 
 function decode(str){
@@ -16,7 +17,7 @@ function Item(props) {
   return (
     <>
       <h1>{title}</h1>
-      <p>{text}</p>
+      <ReactMarkdown>{text}</ReactMarkdown>
 
 
     </>
@@ -71,7 +72,7 @@ function Subreddit() {
             <Item
               key={id}
               title={title}
-              text={decode(selftext)}
+              text={selftext}
             />
           )
         }
