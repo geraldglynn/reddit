@@ -1,1 +1,8 @@
 @import 'bootstrap/scss/bootstrap.scss';
+
+.logo{
+  height: 60px;
+  background-image: url('../img/reddit-logo.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
