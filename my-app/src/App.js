@@ -7,8 +7,10 @@ import {
   useRouteMatch,
 } from 'react-router-dom'
 
+import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Nav from 'react-bootstrap/Nav'
 
 import 'style/main.scss'
 
@@ -23,43 +25,34 @@ const topics = [
 function App() {
   return (
     <Router>
-      <Row>
-        <Col xs={4}>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/topics">Topics</Link>
-            </li>
-          </ul>
-
-          <h2>Topics</h2>
-          <ul>
-            {topics.map(topic => 
-              <li>
-                <Link to={`/topics/${topic}`} disabled={true}>r/{topic}</Link>
-              </li>
-            )}
-          </ul>
-        </Col>
-        <Col xs={8}>
-          <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/topics">
-              <Topics />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+      <div className="logo"></div>
+      <Container>
+        <Row>
+          <Col xs={4}>
+            <h2>Topics</h2>
+            <Nav className="flex-column">
+              {topics.map(topic => 
+                <li>
+                  <Nav.Link href={`/topics/${topic}`}>r/{topic}</Nav.Link>
+                </li>
+              )}
+          </Nav>
           </Col>
-      </Row>
+          <Col xs={8}>
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/topics">
+                <Topics />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+            </Col>
+        </Row>
+      </Container>
     </Router>
   );
 }
