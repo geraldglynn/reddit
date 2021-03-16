@@ -87,6 +87,7 @@ function Subreddit(props) {
                 text={selftext}
                 thumbnail={thumbnail}
               />
+              <hr />
             </Row>
           )
         }
