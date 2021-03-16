@@ -1,28 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from "react-dom";
+import Pagination from "react-js-pagination";
 import ReactMarkdown from 'react-markdown'
+
 import { fetchSubreddit, fetchSubredditPosts } from '../api/reddit'
 
-function decode(str){
-  return str.replace(/&#(\d+);/g, function(match, dec) {
-    return String.fromCharCode(dec);
-  });
-}
-
-function Item(props) {
-  const {
-    title,
-    text,
-  } = props
-
-  return (
-    <>
-      <h1>{title}</h1>
-      <ReactMarkdown>{text}</ReactMarkdown>
-
-
-    </>
-  )
-}
+import Item from './item'
 
 function Subreddit() {
   const [ postCount, setPostCount ] = useState([])
@@ -30,10 +13,11 @@ function Subreddit() {
   const topic = 'reactjs'
 
   const getSubreddit = () => fetchSubreddit(topic).then(subreddit => setPosts(subreddit.children))
+  posts.sort( (a, b) => a.created_utc - b.created_utc )
 
   useEffect(getSubreddit, [])
-
-    return(
+  
+  return(
       <>
       { posts && posts.length > 0 && posts.map(
         post => {
@@ -71,6 +55,7 @@ function Subreddit() {
           return(
             <Item
               key={id}
+              created_utc={created_utc}
               title={title}
               text={selftext}
             />
