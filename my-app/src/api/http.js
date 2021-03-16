@@ -1,14 +1,18 @@
 const domain = 'https://www.reddit.com'
 
-export default (topic='') => {
-  const url = `${domain}/r/${topic}.json`
-  let response
+const CACHE = {};
+const MAX_AGE = 600000;  // 10m
 
-  try {
-    response = fetch(url)
-  } catch (error) {
-    console.error(error)
+export default (url) => {
+  const cached = CACHE[url]
+
+  if (cached && (Date.now() - cached.time < MAX_AGE)) {
+    return cached
   }
 
-  return response.then( res => res.json() )
+  const response = fetch(url).then( res => res.json() )
+  response.time = Date.now()
+  CACHE[url] = response
+  
+  return response
 }

@@ -1,9 +1,7 @@
-import http from './http'
+import http from 'api/http'
+const domain = 'https://www.reddit.com'
 
-export const fetchSubreddit = (topic) => {
-  return http(topic).then(json => json?.data)
-}
-
-export const fetchSubredditPosts = (topic) => {
-  return fetchSubreddit(topic).then(data => data?.children)
+export const fetchSubreddit = (topic='example') => {
+  const url = `${domain}/r/${topic}.json`
+  return http(url).then(json => json.data)
 }
