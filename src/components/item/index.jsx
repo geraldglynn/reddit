@@ -37,7 +37,7 @@ function Item(props) {
         </Col>
         }
         <Col xs={hasThumbnail ? 9 : 12}>
-          <ReactMarkdown>{text}</ReactMarkdown>
+          <ReactMarkdown>{htmlEntity.decode(text)}</ReactMarkdown>
         </Col>
       </Row>
     </Col>
