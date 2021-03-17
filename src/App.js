@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   useRouteMatch,
+  useHistory,
 } from 'react-router-dom'
 
 import Container from 'react-bootstrap/Container'
@@ -12,33 +13,43 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Nav from 'react-bootstrap/Nav'
 
+
 import 'style/main.scss'
 
 import Subreddit from 'components/subreddit'
+import TopicInput from 'components/topic-input'
 
-const topics = [
+const defaultTopics = [
   'reactjs',
   'FreeCodeCamp',
   'webdev',
 ]
 
 function App() {
+
+  const [ topics, setTopics ] = useState(defaultTopics)
+
+  const updateTopics = topic => {
+    setTopics([topic, ...topics])
+  }
+
   return (
     <Router>
       <div className="logo"></div>
       <Container>
         <Row>
-          <Col xs={4}>
+          <Col md={4}>
             <h2>Topics</h2>
+            <TopicInput updateTopics={updateTopics}/>
             <Nav className="flex-column">
-              {topics.map(topic => 
+              {topics.map(topic =>
                 <li>
-                  <Nav.Link href={`/topics/${topic}`}>r/{topic}</Nav.Link>
+                  <Link to={`/topics/${topic}`}>r/{topic}</Link>
                 </li>
               )}
           </Nav>
           </Col>
-          <Col xs={8}>
+          <Col md={8}>
             <Switch>
               <Route path="/about">
                 <About />

@@ -13,7 +13,6 @@ import { fetchSubreddit, fetchSubredditPosts } from 'api/reddit'
 import Item from 'components/item'
 
 const itemsCountPerPage = 10 
-const pageRangeDisplayed = 5
 
 function Subreddit(props) {
   const topic = useParams().topic || 'reactjs'
