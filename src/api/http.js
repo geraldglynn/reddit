@@ -1,5 +1,3 @@
-const domain = 'https://www.reddit.com'
-
 const CACHE = {};
 const MAX_AGE = 600000;  // 10m
 
