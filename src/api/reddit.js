@@ -3,5 +3,9 @@ const domain = 'https://www.reddit.com'
 
 export const fetchSubreddit = (topic='example') => {
   const url = `${domain}/r/${topic}.json`
-  return http(url).then(json => json.data)
+  const res = http(url).then(json => {
+    if(json) { return json.data }
+    return null
+  })
+  return res
 }

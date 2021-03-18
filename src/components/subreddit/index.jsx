@@ -12,26 +12,29 @@ import { fetchSubreddit, fetchSubredditPosts } from 'api/reddit'
 
 import Item from 'components/item'
 
-const itemsCountPerPage = 10 
+const itemsCountPerPage = 10
 
 function Subreddit(props) {
   const topic = useParams().topic || 'reactjs'
   const page = parseInt(useParams().page) || 1
-  
+  let topicNotFound = false
+
   const [ posts, setPosts ] = useState([])
   const [ postCount, setPostCount ] = useState(0)
   const [ activePage, setActivePage ] = useState(1)
-  
+
   const getSubreddit = () => fetchSubreddit(topic).then(subreddit => {
-    setPostCount(subreddit.dist)
-    setPosts(subreddit.children)
+    if(!subreddit) topicNotFound = true
+    else {
+      setPostCount(subreddit.dist)
+      setPosts(subreddit.children)
+    }
   })
 
   useEffect(getSubreddit, [topic])
-  
-  
+
   const handlePageChange = pageNumber => setActivePage(pageNumber)
-  
+
   const sortedPosts = posts.sort( (a, b) => a.created_utc - b.created_utc )
 
   const displayPostsStart = (page - 1) * itemsCountPerPage
@@ -40,10 +43,10 @@ function Subreddit(props) {
 
   return(
       <>
-      <h1>r/{topic}</h1>
+      <h1>r/{topic}{topicNotFound ? 'Not found!' : ''}</h1>
       { displayPosts && displayPosts.length > 0 && displayPosts.map(
         post => {
-          console.log(post)
+          // console.log(post)
           const data = post.data || {}
           const {
             id,
@@ -74,8 +77,8 @@ function Subreddit(props) {
             wls,
             title,
           } = data
-          
-          console.log(id)
+
+          // console.log(id)
 
           return(
             <Row>
@@ -103,4 +106,3 @@ function Subreddit(props) {
 }
 
 export default Subreddit
-

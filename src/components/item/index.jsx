@@ -22,8 +22,6 @@ function Item(props) {
   const timestamp = new Date(created_utc * 1000)
   const formattedTimeDate = format(timestamp, 'h.mma [on] dddd MMMM Do, YYYY')
 
-  console.log({thumbnail})
-
   const hasThumbnail = isUrl(thumbnail)
 
   return (
