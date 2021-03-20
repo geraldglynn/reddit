@@ -27,19 +27,12 @@ export default (url) => {
     return cached
   }
 
-  const response = fetch(url).then(res => {
-    if (res.status >= 200 && res.status <= 299) {
-      debugger
-        return res.json()
-      } else {
-        throw Error(res.statusText)
-      }
-    }).then((jsonResponse) => {
-      return jsonResponse
-    }).catch((error) => {
-      console.log(error)
-      return Promise.resolve()
-  })
+  const response = fetch(url).then(res => res.json())
+  .catch(error => ({
+    isError: true,
+    message: error,
+  }))
+
   response.time = Date.now()
   CACHE[url] = response
   return response
