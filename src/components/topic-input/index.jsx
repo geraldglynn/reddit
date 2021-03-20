@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
@@ -6,9 +6,10 @@ import InputGroup from 'react-bootstrap/InputGroup'
 
 function TopicInput(props) {
 
-  const { updateTopics } = props
+  const { updateTopics, hasError } = props
 
   const [ topic, setTopic ] = useState('')
+  const [ hasError2, setHasError ] = useState(hasError)
 
   const handleOnChange = event => {
     setTopic(event.target.value)
@@ -33,6 +34,7 @@ function TopicInput(props) {
           aria-describedby="subreddit-topic"
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
+          invalid={hasError2}
         />
         {/* <FormControl type="submit">Sign in</FormControl> */}
       </InputGroup>

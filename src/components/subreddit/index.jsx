@@ -15,6 +15,7 @@ import Item from 'components/item'
 const itemsCountPerPage = 10
 
 function Subreddit(props) {
+  const { handleResponseError } = props
   const topic = useParams().topic || 'reactjs'
   const page = parseInt(useParams().page) || 1
   let topicNotFound = false
@@ -24,10 +25,14 @@ function Subreddit(props) {
   const [ activePage, setActivePage ] = useState(1)
 
   const getSubreddit = () => fetchSubreddit(topic).then(subreddit => {
-    if(!subreddit) topicNotFound = true
+    if(subreddit.isError) {
+      console.log('hasError...')
+      handleResponseError(true)
+      // topicNotFound = true
+    }
     else {
-      setPostCount(subreddit.dist)
-      setPosts(subreddit.children)
+      setPostCount(subreddit.data.dist)
+      setPosts(subreddit.data.children)
     }
   })
 
